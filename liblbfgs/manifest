@@ -1,0 +1,15 @@
+: 1
+name: liblbfgs
+version: 1.1.0-a.0.z
+language: c
+summary: lbfgs C library
+license: MIT ; MIT License.
+description-file: README
+package-description-file: PACKAGE-README.md
+changes-file: NEWS
+url: https://example.org/upstream
+email: upstream@example.org
+package-url: https://github.com/build2-packaging/liblbfgs
+package-email: packaging@build2.org ; Mailing list.
+depends: * build2 >= 0.16.0
+depends: * bpkg >= 0.16.0
