@@ -6,7 +6,6 @@ summary: lbfgs C library
 license: MIT ; MIT License.
 description-file: README
 package-description-file: PACKAGE-README.md
-changes-file: NEWS
 url: https://example.org/upstream
 email: upstream@example.org
 package-url: https://github.com/build2-packaging/liblbfgs
