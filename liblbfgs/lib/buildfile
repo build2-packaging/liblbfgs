@@ -67,7 +67,14 @@ else
   
 
 if ($c.target.system == 'mingw32')
+{
   c.loptions += -Wl,--export-all-symbols
+}
+
+if ($c.target.class != 'windows')
+{
+  c.libs += -lm
+}
 
 # Export options.
 #
