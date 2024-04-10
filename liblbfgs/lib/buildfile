@@ -1,7 +1,3 @@
-intf_libs = # Interface dependencies.
-impl_libs = # Implementation dependencies.
-#import xxxx_libs += libhello%lib{hello}
-
 # Public headers.
 #
 pub = [dir_path] ../include/
@@ -14,20 +10,61 @@ lib{lbfgs}: libul{lbfgs}: $pub/{$pub_hdrs}
 
 # Private headers and sources as well as dependencies.
 #
-libul{lbfgs}: {h c}{**} $impl_libs $intf_libs
+libul{lbfgs}: {h c}{**}
 
 libs{lbfgs}: def{lbfgs}: include = ($c.target.system == 'win32-msvc')
 def{lbfgs}: libul{lbfgs}
 
 # Build options.
 #
-out_pfx_inc = [dir_path] $out_root/include/
 src_pfx_inc = [dir_path] $src_root/include/
-out_pfx_src = [dir_path] $out_root/lib/
 src_pfx_src = [dir_path] $src_root/lib/
 
-c.poptions =+ "-I$out_pfx_src" "-I$src_pfx_src" \
-              "-I$out_pfx_inc" "-I$src_pfx_inc"
+c.poptions =+ "-I$src_pfx_src" "-I$src_pfx_inc"
+
+# Add lbfgs specific public options
+poptions = "-I$src_pfx_inc"
+
+if ($config.liblbfgs.use_double)
+{
+    poptions += "-DLBFGS_FLOAT=64"
+}
+else
+{
+    poptions += "-DLBFGS_FLOAT=32"
+}
+
+if ($config.liblbfgs.use_IEEE754)
+{
+    poptions += "-DLBFGS_IEEE_FLOAT=0"
+}
+else
+{
+    poptions += "-DLBFGS_IEEE_FLOAT=1"
+}
+
+# Needs checks for header files which are included in lbfgs.c
+#if ($config.liblbfgs.use_SSE)
+#{
+#    c.poptions += USE_SSE
+#    if($config.liblbfgs.use_double)
+#    {
+#        #Incomplete, needs check for xmmintrin.h
+#        if ($c.target.system == 'win32-msvc')
+#        {
+#            c.poptions += __SSE2__
+#        }
+#    }
+#    else
+#    {
+#        #Incomplete needs check for emmintrin.h
+#        if ($c.target.system == 'win32-msvc')
+#        {
+#            c.poptions += __SSE__
+#        }
+#    }
+#}
+  
 
 if ($c.target.system == 'mingw32')
   c.loptions += -Wl,--export-all-symbols
@@ -36,8 +73,7 @@ if ($c.target.system == 'mingw32')
 #
 lib{lbfgs}:
 {
-  c.export.poptions = "-I$out_pfx_inc" "-I$src_pfx_inc"
-  c.export.libs = $intf_libs
+  c.export.poptions = $poptions
 }
 
 # For pre-releases use the complete version to make sure they cannot
