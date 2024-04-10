@@ -50,5 +50,5 @@ This package provides the following configuration variables:
 [bool] config.liblbfgs.use_IEEE754 ?= true
 ```
 
-use_double enables double precision floating point arithmetics.
-use_IEEE754 enables optimization routines for IEEE754 floating point values.
+- `use_double` enables double precision floating point arithmetics.
+- `use_IEEE754` enables optimization routines for IEEE754 floating point values.

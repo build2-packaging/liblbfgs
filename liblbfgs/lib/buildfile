@@ -27,42 +27,42 @@ poptions = "-I$src_pfx_inc"
 
 if ($config.liblbfgs.use_double)
 {
-    poptions += "-DLBFGS_FLOAT=64"
+  poptions += "-DLBFGS_FLOAT=64"
 }
 else
 {
-    poptions += "-DLBFGS_FLOAT=32"
+  poptions += "-DLBFGS_FLOAT=32"
 }
 
 if ($config.liblbfgs.use_IEEE754)
 {
-    poptions += "-DLBFGS_IEEE_FLOAT=0"
+  poptions += "-DLBFGS_IEEE_FLOAT=0"
 }
 else
 {
-    poptions += "-DLBFGS_IEEE_FLOAT=1"
+  poptions += "-DLBFGS_IEEE_FLOAT=1"
 }
 
 # Needs checks for header files which are included in lbfgs.c
 #if ($config.liblbfgs.use_SSE)
 #{
-#    c.poptions += USE_SSE
-#    if($config.liblbfgs.use_double)
+#  c.poptions += USE_SSE
+#  if($config.liblbfgs.use_double)
+#  {
+#    #Incomplete, needs check for xmmintrin.h
+#    if ($c.target.system == 'win32-msvc')
 #    {
-#        #Incomplete, needs check for xmmintrin.h
-#        if ($c.target.system == 'win32-msvc')
-#        {
-#            c.poptions += __SSE2__
-#        }
+#        c.poptions += __SSE2__
 #    }
-#    else
+#  }
+#  else
+#  {
+#    #Incomplete needs check for emmintrin.h
+#    if ($c.target.system == 'win32-msvc')
 #    {
-#        #Incomplete needs check for emmintrin.h
-#        if ($c.target.system == 'win32-msvc')
-#        {
-#            c.poptions += __SSE__
-#        }
+#        c.poptions += __SSE__
 #    }
+#  }
 #}
   
 
@@ -88,9 +88,13 @@ lib{lbfgs}:
 # the version module for details on the version.* variable values.
 #
 if $version.pre_release
+{
   lib{lbfgs}: bin.lib.version = "-$version.project_id"
+}
 else
+{
   lib{lbfgs}: bin.lib.version = "-$version.major.$version.minor"
+}
 
 # Don't install private headers.
 #
