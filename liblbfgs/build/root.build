@@ -13,5 +13,4 @@ test.target = $c.target
 
 config [bool] config.liblbfgs.use_double ?= true
 config [bool] config.liblbfgs.use_IEEE754 ?= true
-# Incomplete. Needs further implementation for checking which SSE relevant header files exist on system
-#config [bool] config.liblbfgs.use_SSE ?= false
+config [bool] config.liblbfgs.use_sse ?= false

@@ -1,4 +1,4 @@
-# liblbfgs - <SUMMARY>
+# liblbfgs - C port of the implementation of L-BFGS
 
 [`liblbfgs`](https://github.com/chokkan/liblbfgs)
 C library. It provides a C port of the implementation of Limited-memory

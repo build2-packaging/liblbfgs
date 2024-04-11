@@ -27,43 +27,46 @@ poptions = "-I$src_pfx_inc"
 
 if ($config.liblbfgs.use_double)
 {
-  poptions += "-DLBFGS_FLOAT=64"
+  poptions += -DLBFGS_FLOAT=64
 }
 else
 {
-  poptions += "-DLBFGS_FLOAT=32"
+  poptions += -DLBFGS_FLOAT=32
 }
 
 if ($config.liblbfgs.use_IEEE754)
 {
-  poptions += "-DLBFGS_IEEE_FLOAT=0"
+  poptions += -DLBFGS_IEEE_FLOAT=0
 }
 else
 {
-  poptions += "-DLBFGS_IEEE_FLOAT=1"
+  poptions += -DLBFGS_IEEE_FLOAT=1
 }
 
-# Needs checks for header files which are included in lbfgs.c
-#if ($config.liblbfgs.use_SSE)
-#{
-#  c.poptions += USE_SSE
-#  if($config.liblbfgs.use_double)
-#  {
-#    #Incomplete, needs check for xmmintrin.h
-#    if ($c.target.system == 'win32-msvc')
-#    {
-#        c.poptions += __SSE2__
-#    }
-#  }
-#  else
-#  {
-#    #Incomplete needs check for emmintrin.h
-#    if ($c.target.system == 'win32-msvc')
-#    {
-#        c.poptions += __SSE__
-#    }
-#  }
-#}
+if ($config.liblbfgs.use_sse)
+{
+  c.poptions += -DUSE_SSE
+  if($config.liblbfgs.use_double)
+  {
+    return_system_header = $c.find_system_header('emmintrin.h')
+    have_header = $empty($return_system_header)
+    c.poptions += ($have_header ? '-DHAVE_EMMINTRIN_H=1' : '-DHAVE_EMMINTRIN_H=0')
+    if ($c.target.system == 'win32-msvc')
+    {
+        c.poptions += -D__SSE2__
+    }
+  }
+  else
+  {
+    return_system_header = $c.find_system_header('xmmintrin.h')
+    have_header = $empty($return_system_header)
+    c.poptions += ($have_header ? '-DHAVE_XMMINTRIN_H=1' : '-DHAVE_XMMINTRIN_H=0')
+    if ($c.target.system == 'win32-msvc')
+    {
+        c.poptions += -D__SSE2__
+    }
+  }
+}
   
 
 if ($c.target.system == 'mingw32')
