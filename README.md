@@ -16,7 +16,7 @@ http://www.chokkan.org/software/liblbfgs/
 This file contains setup instructions and other details that are more
 appropriate for development rather than consumption. If you want to use
 `liblbfgs` in your `build2`-based project, then instead see the accompanying
-[`PACKAGE-README.md`](<PACKAGE>/PACKAGE-README.md) file.
+[`PACKAGE-README.md`](liblbfgs/PACKAGE-README.md) file.
 
 The development setup for `liblbfgs` uses the standard `bdep`-based workflow.
 For example:
