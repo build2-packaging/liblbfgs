@@ -1,0 +1,7 @@
+: 1
+name: liblbfgs
+version: 1.10.0
+language: c
+summary: libLBFGS is a C port of the implementation of Limited-memory\
+ Broyden-Fletcher-Goldfarb-Shanno
+license: MIT; MIT License.
