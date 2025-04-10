@@ -12,5 +12,5 @@ c{*}: extension = c
 test.target = $c.target
 
 config [bool] config.liblbfgs.use_double ?= true
-config [bool] config.liblbfgs.use_IEEE754 ?= true
+config [bool] config.liblbfgs.use_ieee754 ?= true
 config [bool] config.liblbfgs.use_sse ?= false

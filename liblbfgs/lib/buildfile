@@ -34,7 +34,7 @@ else
   poptions += -DLBFGS_FLOAT=32
 }
 
-if ($config.liblbfgs.use_IEEE754)
+if ($config.liblbfgs.use_ieee754)
 {
   poptions += -DLBFGS_IEEE_FLOAT=0
 }
